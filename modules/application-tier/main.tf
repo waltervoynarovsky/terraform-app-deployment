@@ -44,19 +44,11 @@ resource "aws_security_group_rule" "rule" {
 resource "aws_instance" "app" {
   ami = "${var.ami_id}"
   instance_type = "t2.micro"
-  key_name= "walterwojnarowski-awskey"
+  key_name= "walterwojnarowski-awskey2"
   user_data = "${var.user_data}"
   subnet_id = "${aws_subnet.walter-app-subnet.id}"
   vpc_security_group_ids = ["${aws_security_group.walter-sg-group.id}"]
   tags = {
     Name = "${var.name}"
-  }
-
-  connection {
-      type        = "ssh"
-      host        = "3.129.217.226"
-      user        = "ubuntu"
-      private_key = file("/Users/walter/.ssh/walterwojnarowski-awskey.pem")
-      timeout     = "4m"
   }
 }
